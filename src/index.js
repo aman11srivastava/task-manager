@@ -19,6 +19,44 @@ app.post('/users', (req, res) => {
         })
 })
 
+app.get('/users', (req, res) => {
+    User.find({})
+        .then((users) => {
+            res.status(202).send(users)
+        })
+        .catch((err) => {
+            res.status(404).send(err.message)
+        })
+})
+
+app.get('/users/:id', (req, res) => {
+    const _id = req.params.id;
+    User.findById(_id)
+        .then((user) => {
+            if (!user) {
+                return res.status(404).send('No user found with this id')
+            }
+            res.status(202).send(user)
+        })
+        .catch((err) => {
+            res.status(404).send(err.message)
+        })
+})
+
+app.get('/tasks', (req, res) => {
+    Task.find({})
+        .then((tasks) => {
+            if (!tasks) {
+                return res.status(404).send('No task found with this id')
+            }
+            res.status(202).send(tasks);
+        })
+        .catch((err) => {
+            res.status(404).send(err.message)
+        })
+})
+
+
 app.post('/tasks', (req, res) => {
     const task = new Task(req.body)
     task.save()
@@ -27,6 +65,17 @@ app.post('/tasks', (req, res) => {
         })
         .catch((err) => {
             res.status(400).send(err.message)
+        })
+})
+
+app.get('/tasks/:id', (req, res) => {
+    const _id = req.params.id;
+    Task.findById(_id)
+        .then((task) => {
+            res.status(202).send(task)
+        })
+        .catch((err) => {
+            res.status(404).send(err.message)
         })
 })
 
