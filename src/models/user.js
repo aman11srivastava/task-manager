@@ -58,6 +58,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
 }
 
 // Hashing plain text password
+// Pre method will be called before an event here -> before the user is saved into the database
 userSchema.pre('save', async function (next) {
     const user = this;
     if (user.isModified('password')) {
