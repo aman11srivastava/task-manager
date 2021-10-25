@@ -17,8 +17,7 @@ router.post('/users/login', async (req, res) => {
         const email = req.body.email;
         const password = req.body.password;
         // Making a custom method
-        const user = User.findByCredentials(email, password)
-        console.log(user)
+        const user = await User.findUserByCredentials(email, password)
         res.send(user);
     }
     catch (err){
