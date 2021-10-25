@@ -70,4 +70,5 @@ userSchema.pre('save', async function (next) {
 
 const User = mongoose.model('User', userSchema)
 
-module.exports = {User, findUserByCredentials}
+module.exports = User
+module.exports = findUserByCredentials()
